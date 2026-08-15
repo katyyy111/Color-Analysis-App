@@ -56,7 +56,14 @@ export default function RootLayout({
     >
       <body className="font-sans antialiased">
         {children}
-        {process.env.NODE_ENV === 'production' && <Analytics />}
+        {process.env.NODE_ENV === 'production' && (
+          <script
+            async
+            defer
+            data-website-id="f0c3e1b4-7d8a-4f5e-a2c9-1b2e3c4d5e6f"
+            src="https://umami.example.com/umami.js"
+          />
+        )}
       </body>
     </html>
   )
