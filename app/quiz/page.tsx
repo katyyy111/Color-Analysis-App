@@ -16,6 +16,7 @@ export default function QuizPage() {
 
   function handleSelect(ans: AnswerOption) {
     setAnswers((prev) => ({ ...prev, [current]: ans.id }))
+    console.log('Selected answer:', ans)
   }
 
   function handleNext() {
@@ -24,6 +25,7 @@ export default function QuizPage() {
       setCurrent((prev) => prev + 1)
       return
     }
+    console.log('Final quiz answers:', answers)
     sessionStorage.setItem('quiz-selection', JSON.stringify(answers))
     router.push('/results')
   }
