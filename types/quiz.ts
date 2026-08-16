@@ -28,6 +28,7 @@ export type AnswerCardProps = {
 export type Question = {
   stepTitle: string
   question: string
+  options: AnswerOption[]
 }
 
 export type QuizStepProps = {
