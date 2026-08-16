@@ -4,8 +4,8 @@ export const questions = [
     question: 'How does your skin react to initial sun exposure?',
     options: [
       {
+        id: 'sun_reaction_burns_slow_tan',
         value: {
-          id: 'sun_reaction_burns_slow_tan',
           scores: { temperature: -1.0, value: 1.5, chroma: 0.0 },
           primaryAttribute: 'Light / Cool',
           seasonAffinities: ['Light Summer', 'Cool Summer', 'Light Spring'],
@@ -15,8 +15,8 @@ export const questions = [
         swatch: '#f3d9d3'
       },
       {
+        id: 'sun_reaction_burns_then_golden',
         value: {
-          id: 'sun_reaction_burns_then_golden',
           scores: { temperature: 1.5, value: 0.5, chroma: 0.5 },
           primaryAttribute: 'Warm',
           seasonAffinities: ['Warm Spring', 'Warm Autumn', 'Light Spring'],
@@ -26,8 +26,8 @@ export const questions = [
         swatch: '#e2ab80'
       },
       {
+        id: 'sun_reaction_rarely_burns_deep_tan',
         value: {
-          id: 'sun_reaction_rarely_burns_deep_tan',
           scores: { temperature: 0.5, value: -1.5, chroma: 0.0 },
           primaryAttribute: 'Deep',
           seasonAffinities: ['Deep Autumn', 'Deep Winter', 'Warm Autumn'],
@@ -43,8 +43,8 @@ export const questions = [
     question: 'What tone does your tan settle into after a few days?',
     options: [
       {
+        id: 'tan_tone_golden_honey',
         value: {
-          id: 'tan_tone_golden_honey',
           scores: { temperature: 2.0, value: 0.0, chroma: 0.5 },
           primaryAttribute: 'Warm',
           seasonAffinities: ['Warm Autumn', 'Warm Spring', 'Deep Autumn'],
@@ -54,8 +54,8 @@ export const questions = [
         swatch: '#c68a4c'
       },
       {
+        id: 'tan_tone_cool_olive_pinkish',
         value: {
-          id: 'tan_tone_cool_olive_pinkish',
           scores: { temperature: -2.0, value: -0.5, chroma: -1.0 },
           primaryAttribute: 'Cool / Soft',
           seasonAffinities: ['Cool Summer', 'Soft Summer', 'Cool Winter'],
@@ -65,8 +65,8 @@ export const questions = [
         swatch: '#a68a78'
       },
       {
+        id: 'tan_tone_no_tan_pale_pink',
         value: {
-          id: 'tan_tone_no_tan_pale_pink',
           scores: { temperature: -1.0, value: 2.0, chroma: 0.0 },
           primaryAttribute: 'Light',
           seasonAffinities: ['Light Summer', 'Light Spring', 'Cool Summer'],
@@ -82,8 +82,8 @@ export const questions = [
     question: 'If you have freckles, what shade are they?',
     options: [
       {
+        id: 'freckles_golden_rust',
         value: {
-          id: 'freckles_golden_rust',
           scores: { temperature: 2.0, value: 0.5, chroma: 1.0 },
           primaryAttribute: 'Warm',
           seasonAffinities: ['Warm Spring', 'Warm Autumn', 'Light Spring'],
@@ -93,8 +93,8 @@ export const questions = [
         swatch: '#9c5d33'
       },
       {
+        id: 'freckles_greyish_taupe',
         value: {
-          id: 'freckles_greyish_taupe',
           scores: { temperature: -1.0, value: 0.0, chroma: -1.5 },
           primaryAttribute: 'Soft / Muted',
           seasonAffinities: ['Soft Summer', 'Soft Autumn', 'Cool Summer'],
@@ -104,8 +104,8 @@ export const questions = [
         swatch: '#7a6b61'
       },
       {
+        id: 'freckles_none_clear',
         value: {
-          id: 'freckles_none_clear',
           scores: { temperature: 0.0, value: 0.0, chroma: 1.0 },
           primaryAttribute: 'Clear / Neutral',
           seasonAffinities: ['Bright Winter', 'Bright Spring', 'Cool Winter'],
@@ -121,8 +121,8 @@ export const questions = [
     question: 'How does your skin flush under cold weather, exercise, or emotion?',
     options: [
       {
+        id: 'flush_peachy_coral',
         value: {
-          id: 'flush_peachy_coral',
           scores: { temperature: 1.5, value: 1.0, chroma: 1.0 },
           primaryAttribute: 'Warm / Light',
           seasonAffinities: ['Warm Spring', 'Light Spring', 'Bright Spring'],
@@ -132,8 +132,8 @@ export const questions = [
         swatch: '#ff9a85'
       },
       {
+        id: 'flush_cool_pink_purple',
         value: {
-          id: 'flush_cool_pink_purple',
           scores: { temperature: -2.0, value: 0.0, chroma: 0.0 },
           primaryAttribute: 'Cool',
           seasonAffinities: ['Cool Summer', 'Cool Winter', 'Light Summer'],
@@ -143,8 +143,8 @@ export const questions = [
         swatch: '#de6b98'
       },
       {
+        id: 'flush_minimal_pale',
         value: {
-          id: 'flush_minimal_pale',
           scores: { temperature: 0.0, value: 0.0, chroma: 1.5 },
           primaryAttribute: 'Clear / Deep',
           seasonAffinities: ['Bright Winter', 'Deep Winter', 'Deep Autumn'],
@@ -160,8 +160,8 @@ export const questions = [
     question: 'What was your natural hair color in childhood (up to ~10 years old)?',
     options: [
       {
+        id: 'childhood_hair_light_blonde',
         value: {
-          id: 'childhood_hair_light_blonde',
           scores: { temperature: 0.5, value: 2.0, chroma: 0.5 },
           primaryAttribute: 'Light',
           seasonAffinities: ['Light Spring', 'Light Summer'],
@@ -171,8 +171,8 @@ export const questions = [
         swatch: '#f5e8c7'
       },
       {
+        id: 'childhood_hair_auburn_golden_brown',
         value: {
-          id: 'childhood_hair_auburn_golden_brown',
           scores: { temperature: 2.0, value: 0.5, chroma: 1.0 },
           primaryAttribute: 'Warm',
           seasonAffinities: ['Warm Spring', 'Warm Autumn', 'Bright Spring'],
@@ -182,8 +182,8 @@ export const questions = [
         swatch: '#c26d45'
       },
       {
+        id: 'childhood_hair_ash_mousy',
         value: {
-          id: 'childhood_hair_ash_mousy',
           scores: { temperature: -1.0, value: 1.0, chroma: -2.0 },
           primaryAttribute: 'Soft / Cool',
           seasonAffinities: ['Soft Summer', 'Cool Summer', 'Light Summer'],
@@ -193,8 +193,8 @@ export const questions = [
         swatch: '#a39b8b'
       },
       {
+        id: 'childhood_hair_dark_brown_black',
         value: {
-          id: 'childhood_hair_dark_brown_black',
           scores: { temperature: 0.0, value: -2.0, chroma: 0.0 },
           primaryAttribute: 'Deep',
           seasonAffinities: ['Deep Winter', 'Deep Autumn', 'Cool Winter'],
@@ -210,8 +210,8 @@ export const questions = [
     question: 'How does your natural hair react to sun exposure?',
     options: [
       {
+        id: 'hair_sun_golden_copper_highlights',
         value: {
-          id: 'hair_sun_golden_copper_highlights',
           scores: { temperature: 2.0, value: 0.0, chroma: 1.0 },
           primaryAttribute: 'Warm',
           seasonAffinities: ['Warm Autumn', 'Warm Spring', 'Light Spring'],
@@ -221,8 +221,8 @@ export const questions = [
         swatch: '#d48c46'
       },
       {
+        id: 'hair_sun_muted_ash_silvery',
         value: {
-          id: 'hair_sun_muted_ash_silvery',
           scores: { temperature: -1.5, value: 0.5, chroma: -1.5 },
           primaryAttribute: 'Cool / Soft',
           seasonAffinities: ['Soft Summer', 'Cool Summer', 'Soft Autumn'],
@@ -232,8 +232,8 @@ export const questions = [
         swatch: '#c4b8a5'
       },
       {
+        id: 'hair_sun_retains_dark_shade',
         value: {
-          id: 'hair_sun_retains_dark_shade',
           scores: { temperature: 0.0, value: -1.5, chroma: 0.5 },
           primaryAttribute: 'Deep / Clear',
           seasonAffinities: ['Deep Winter', 'Cool Winter', 'Bright Winter'],
@@ -249,8 +249,8 @@ export const questions = [
     question: 'Which jewelry metal makes your skin look healthiest?',
     options: [
       {
+        id: 'jewelry_yellow_gold',
         value: {
-          id: 'jewelry_yellow_gold',
           scores: { temperature: 2.0, value: 0.0, chroma: 0.5 },
           primaryAttribute: 'Warm',
           seasonAffinities: ['Warm Spring', 'Warm Autumn', 'Light Spring', 'Deep Autumn'],
@@ -260,8 +260,8 @@ export const questions = [
         swatch: '#d4af37'
       },
       {
+        id: 'jewelry_silver_platinum',
         value: {
-          id: 'jewelry_silver_platinum',
           scores: { temperature: -2.0, value: 0.0, chroma: 0.5 },
           primaryAttribute: 'Cool',
           seasonAffinities: ['Cool Summer', 'Cool Winter', 'Light Summer', 'Deep Winter'],
@@ -271,8 +271,8 @@ export const questions = [
         swatch: '#c0c0c0'
       },
       {
+        id: 'jewelry_brushed_pewter_rose_gold',
         value: {
-          id: 'jewelry_brushed_pewter_rose_gold',
           scores: { temperature: 0.0, value: 0.0, chroma: -2.0 },
           primaryAttribute: 'Soft / Neutral',
           seasonAffinities: ['Soft Summer', 'Soft Autumn'],
@@ -288,8 +288,8 @@ export const questions = [
     question: 'Pure Snow White vs. Soft Cream/Ecru draped near your face:',
     options: [
       {
+        id: 'drape_pure_snow_white',
         value: {
-          id: 'drape_pure_snow_white',
           scores: { temperature: -1.0, value: 1.0, chroma: 2.0 },
           primaryAttribute: 'Bright / Cool',
           seasonAffinities: ['Bright Winter', 'Cool Winter', 'Deep Winter', 'Bright Spring'],
@@ -299,8 +299,8 @@ export const questions = [
         swatch: '#ffffff'
       },
       {
+        id: 'drape_cream_ivory',
         value: {
-          id: 'drape_cream_ivory',
           scores: { temperature: 2.0, value: 0.5, chroma: -0.5 },
           primaryAttribute: 'Warm',
           seasonAffinities: ['Warm Autumn', 'Warm Spring', 'Soft Autumn', 'Light Spring'],
@@ -310,8 +310,8 @@ export const questions = [
         swatch: '#f5f2e3'
       },
       {
+        id: 'drape_soft_offwhite_grey',
         value: {
-          id: 'drape_soft_offwhite_grey',
           scores: { temperature: -1.0, value: 0.0, chroma: -2.0 },
           primaryAttribute: 'Soft',
           seasonAffinities: ['Soft Summer', 'Soft Autumn', 'Cool Summer', 'Light Summer'],
@@ -327,8 +327,8 @@ export const questions = [
     question: 'Solid Black fabric draped under your chin:',
     options: [
       {
+        id: 'drape_black_striking_elegance',
         value: {
-          id: 'drape_black_striking_elegance',
           scores: { temperature: -0.5, value: -2.0, chroma: 1.5 },
           primaryAttribute: 'Deep / Bright',
           seasonAffinities: ['Deep Winter', 'Cool Winter', 'Bright Winter', 'Deep Autumn'],
@@ -338,8 +338,8 @@ export const questions = [
         swatch: '#1a1a1a'
       },
       {
+        id: 'drape_black_makes_tired',
         value: {
-          id: 'drape_black_makes_tired',
           scores: { temperature: 0.0, value: 1.5, chroma: -1.5 },
           primaryAttribute: 'Light / Soft',
           seasonAffinities: ['Light Summer', 'Light Spring', 'Soft Summer'],
@@ -349,8 +349,8 @@ export const questions = [
         swatch: '#4a4a4a'
       },
       {
+        id: 'drape_black_needs_warm_accents',
         value: {
-          id: 'drape_black_needs_warm_accents',
           scores: { temperature: 1.5, value: -1.0, chroma: -1.0 },
           primaryAttribute: 'Warm / Deep',
           seasonAffinities: ['Warm Autumn', 'Soft Autumn', 'Deep Autumn'],

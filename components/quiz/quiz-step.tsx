@@ -6,9 +6,7 @@ import { AnswerCard } from '@/components/quiz/answer-card'
 import { QuizStepProps } from '@/types/quiz'
 
 export function QuizStep({
-  stepTitle,
   question,
-  options,
   currentStep,
   totalSteps,
   selected,
@@ -23,7 +21,7 @@ export function QuizStep({
       {/* progress bar */}
       <div className="mb-8">
         <div className="mb-2 flex items-center justify-between text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
-          <span>{stepTitle}</span>
+          <span>{question.stepTitle}</span>
           <span>
             {currentStep} / {totalSteps}
           </span>
@@ -44,20 +42,20 @@ export function QuizStep({
 
       {/* question */}
       <h2 className="text-balance font-serif text-3xl font-semibold leading-tight tracking-tight text-foreground sm:text-4xl">
-        {question}
+        {question.question}
       </h2>
 
       {/* answers */}
       <div
         role="radiogroup"
-        aria-label={question}
+        aria-label={question.question}
         className="mt-8 flex flex-col gap-3"
       >
-        {options.map((option) => (
+        {question.options.map((option) => (
           <AnswerCard
-            key={option.value.id}
+            key={option.id}
             option={option}
-            selected={selected === option.value.id}
+            selected={selected === option.id}
             onSelect={onSelect}
           />
         ))}

@@ -10,7 +10,7 @@ export function AnswerCard({ option, selected, onSelect }: AnswerCardProps) {
       type="button"
       role="radio"
       aria-checked={selected}
-      onClick={() => onSelect(option.value.id)}
+      onClick={() => onSelect(option)}
       className={cn(
         'group relative flex w-full items-center gap-4 rounded-2xl border bg-card/70 p-4 text-left backdrop-blur transition-all duration-300 outline-none',
         'hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/10',

@@ -1,25 +1,31 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { QuizStep } from '@/components/quiz/quiz-step'
 import { questions } from '@/lib/quiz-data'
+import { AnswerOption } from '@/types/quiz'
 
 export default function QuizPage() {
+  const router = useRouter()
   const [current, setCurrent] = useState(0)
   const [answers, setAnswers] = useState<Record<number, string>>({})
 
   const question = questions[current]
   const isLastStep = current === questions.length - 1
 
-  function handleSelect(value: string) {
-    setAnswers((prev) => ({ ...prev, [current]: value }))
+  function handleSelect(ans: AnswerOption) {
+    setAnswers((prev) => ({ ...prev, [current]: ans.id }))
   }
 
   function handleNext() {
     if (!answers[current]) return
     if (!isLastStep) {
       setCurrent((prev) => prev + 1)
+      return
     }
+    sessionStorage.setItem('quiz-selection', JSON.stringify(answers))
+    router.push('/results')
   }
 
   return (
@@ -45,10 +51,7 @@ export default function QuizPage() {
       {/* content */}
       <div className="relative z-10 mx-auto flex min-h-[calc(100vh-6rem)] w-full max-w-3xl flex-col justify-center px-6 py-12">
         <QuizStep
-          key={current}
-          stepTitle={question.stepTitle}
-          question={question.question}
-          options={question.options}
+          question={question}
           currentStep={current + 1}
           totalSteps={questions.length}
           selected={answers[current] ?? null}
