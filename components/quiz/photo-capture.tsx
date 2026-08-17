@@ -241,5 +241,5 @@ export function PhotoCapture({ initialPhoto, onChange }: PhotoCaptureProps) {
   }
 
   // idle: choose camera or upload
-  renderIdleView()
+  return renderIdleView()
 }

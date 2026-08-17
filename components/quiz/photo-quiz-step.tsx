@@ -15,7 +15,7 @@ export function PhotoQuizStep({
 
   return (
     <QuizStepTemplate {...stepProps}>
-      <PhotoCapture value={photo} onChange={onPhotoChange} />
+      <PhotoCapture initialPhoto={photo} onChange={onPhotoChange} />
     </QuizStepTemplate>
   )
 }
