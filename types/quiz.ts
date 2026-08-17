@@ -1,3 +1,5 @@
+import { ReactNode } from "react"
+
 export type ScoreVector = {
   temperature: number
   value: number
@@ -28,17 +30,35 @@ export type AnswerCardProps = {
 export type Question = {
   stepTitle: string
   question: string
-  options: AnswerOption[]
+  description?: string
+  options?: AnswerOption[]
 }
 
-export type QuizStepProps = {
+export type QuizStepTemplateProps = {
   question: Question
   currentStep: number
   totalSteps: number
+  onNext: () => void
+  canProceed: boolean
+  isLastStep?: boolean
+  children?: ReactNode
+}
+
+export type PhotoQuizStepProps = {
+  props: QuizStepTemplateProps
+  photo: string | null
+  onPhotoChange: (photo: string | null) => void
+}
+
+export type QuizStepProps = {
+  props: QuizStepTemplateProps
   selected: string | null
   onSelect: (value: AnswerOption) => void
-  onNext: () => void
-  isLastStep?: boolean
+}
+
+export type PhotoCaptureProps = {
+  value: string | null
+  onChange: (dataUrl: string | null) => void
 }
 
 export type SeasonalRanking = {

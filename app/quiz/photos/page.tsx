@@ -2,32 +2,30 @@
 
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { QuizStep } from '@/components/quiz/quiz-step'
-import { questions } from '@/lib/quiz-data'
-import { AnswerOption } from '@/types/quiz'
+import { PhotoQuizStep } from '@/components/quiz/photo-quiz-step'
+import { photoQuestions } from '@/lib/photo-data'
 
 export default function QuizPage() {
   const router = useRouter()
   const [current, setCurrent] = useState(0)
-  const [answers, setAnswers] = useState<Record<number, string>>({})
+  const [photos, setPhotos] = useState<Record<number, string | null>>({})
 
-  const question = questions[current]
-  const isLastStep = current === questions.length - 1
+  const question = photoQuestions[current]
+  const isLastStep = current === photoQuestions.length - 1
 
-  function handleSelect(ans: AnswerOption) {
-    setAnswers((prev) => ({ ...prev, [current]: ans.id }))
-    console.log('Selected answer:', ans)
+  function handleSelect(photo: string | null) {
+    setPhotos((prev) => ({ ...prev, [current]: photo }))
+    console.log('Selected photo:', photo)
   }
 
   function handleNext() {
-    if (!answers[current]) return
+    if (!photos[current]) return
     if (!isLastStep) {
       setCurrent((prev) => prev + 1)
       return
     }
-    console.log('Final quiz answers:', answers)
-    sessionStorage.setItem('quiz-selection', JSON.stringify(answers))
-    router.push('/results')
+    console.log('Final quiz answers:', photos)
+    router.push('/quiz/questions')
   }
 
   return (
@@ -52,14 +50,10 @@ export default function QuizPage() {
 
       {/* content */}
       <div className="relative z-10 mx-auto flex min-h-[calc(100vh-6rem)] w-full max-w-3xl flex-col justify-center px-6 py-12">
-        <QuizStep
-          question={question}
-          currentStep={current + 1}
-          totalSteps={questions.length}
-          selected={answers[current] ?? null}
-          onSelect={handleSelect}
-          onNext={handleNext}
-          isLastStep={isLastStep}
+        <PhotoQuizStep
+          props={{question, currentStep: current + 1, totalSteps: photoQuestions.length, onNext: handleNext, canProceed: !!photos[current], isLastStep: isLastStep}}
+          photo={photos[current] ?? null}
+          onPhotoChange={handleSelect}
         />
       </div>
     </main>

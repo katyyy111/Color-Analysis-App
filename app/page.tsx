@@ -48,7 +48,7 @@ export default function Page() {
           size="lg"
           className="group mt-14 h-14 rounded-full px-8 text-base shadow-lg shadow-primary/20"
         >
-          <Link href="/quiz" className="inline-flex items-center">
+          <Link href="/quiz/photos" className="inline-flex items-center">
             <span>Get started with the quiz</span>
             <ArrowRight className="ml-1 size-5 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
