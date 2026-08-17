@@ -105,8 +105,7 @@ export function PhotoCapture({ initialPhoto, onChange }: PhotoCaptureProps) {
     setError(null)
   } // used when retaking or replacing the photo
 
-  // captured / uploaded preview
-  if (initialPhoto) {
+  function renderImagePreview() {
     return (
       <div className="flex flex-col items-center gap-5">
         <div className="relative">
@@ -134,8 +133,7 @@ export function PhotoCapture({ initialPhoto, onChange }: PhotoCaptureProps) {
     )
   }
 
-  // live camera view
-  if (mode === 'camera') {
+  function renderCameraView() {
     return (
       <div className="flex flex-col items-center gap-5">
         <div className="relative size-56 overflow-hidden rounded-3xl bg-secondary shadow-lg shadow-primary/15 ring-1 ring-border">
@@ -172,59 +170,73 @@ export function PhotoCapture({ initialPhoto, onChange }: PhotoCaptureProps) {
     )
   }
 
-  // idle: choose camera or upload
-  return (
-    <div className="flex flex-col items-center gap-5">
-      <button
-        type="button"
-        onClick={() => fileInputRef.current?.click()}
-        className={cn(
-          'group flex size-56 flex-col items-center justify-center gap-3 rounded-3xl border-2 border-dashed border-primary/30 bg-card/60 p-6 text-center backdrop-blur transition-all duration-300 outline-none',
-          'hover:-translate-y-0.5 hover:border-primary/60 hover:bg-primary/5 hover:shadow-lg hover:shadow-primary/10',
-          'focus-visible:ring-3 focus-visible:ring-ring/50',
-        )}
-      >
-        <span className="flex size-14 items-center justify-center rounded-full bg-primary/10 text-primary transition-transform duration-300 group-hover:scale-105">
-          <Upload className="size-6" />
-        </span>
-        <span className="font-serif text-lg font-semibold text-foreground">
-          Upload a photo
-        </span>
-        <span className="text-pretty text-sm leading-relaxed text-muted-foreground">
-          A clear, natural-light selfie works best.
-        </span>
-      </button>
+  function renderIdleView() {
+    return (
+      <div className="flex flex-col items-center gap-5">
+        <button
+          type="button"
+          onClick={() => fileInputRef.current?.click()}
+          className={cn(
+            'group flex size-56 flex-col items-center justify-center gap-3 rounded-3xl border-2 border-dashed border-primary/30 bg-card/60 p-6 text-center backdrop-blur transition-all duration-300 outline-none',
+            'hover:-translate-y-0.5 hover:border-primary/60 hover:bg-primary/5 hover:shadow-lg hover:shadow-primary/10',
+            'focus-visible:ring-3 focus-visible:ring-ring/50',
+          )}
+        >
+          <span className="flex size-14 items-center justify-center rounded-full bg-primary/10 text-primary transition-transform duration-300 group-hover:scale-105">
+            <Upload className="size-6" />
+          </span>
+          <span className="font-serif text-lg font-semibold text-foreground">
+            Upload a photo
+          </span>
+          <span className="text-pretty text-sm leading-relaxed text-muted-foreground">
+            A clear, natural-light selfie works best.
+          </span>
+        </button>
 
-      <div className="flex items-center gap-3 text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
-        <span className="h-px w-8 bg-border" />
-        or
-        <span className="h-px w-8 bg-border" />
+        <div className="flex items-center gap-3 text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
+          <span className="h-px w-8 bg-border" />
+          or
+          <span className="h-px w-8 bg-border" />
+        </div>
+
+        <Button
+          variant="outline"
+          size="lg"
+          onClick={startCamera}
+          className="rounded-full border-primary/30 bg-card/60 px-6 backdrop-blur hover:border-primary/60 hover:bg-primary/5"
+        >
+          <Camera className="mr-1 size-5" />
+          Take a photo
+        </Button>
+
+        {error ? (
+          <p className="text-pretty text-center text-sm text-destructive">
+            {error}
+          </p>
+        ) : null}
+
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/png,image/jpeg,image/webp"
+          capture="user"
+          onChange={handleFile}
+          className="sr-only"
+        />
       </div>
+    )
+  }
 
-      <Button
-        variant="outline"
-        size="lg"
-        onClick={startCamera}
-        className="rounded-full border-primary/30 bg-card/60 px-6 backdrop-blur hover:border-primary/60 hover:bg-primary/5"
-      >
-        <Camera className="mr-1 size-5" />
-        Take a photo
-      </Button>
+  // captured / uploaded preview
+  if (initialPhoto) {
+    return renderImagePreview()
+  }
 
-      {error ? (
-        <p className="text-pretty text-center text-sm text-destructive">
-          {error}
-        </p>
-      ) : null}
+  // live camera view
+  if (mode === 'camera') {
+    return renderCameraView()
+  }
 
-      <input
-        ref={fileInputRef}
-        type="file"
-        accept="image/png,image/jpeg,image/webp"
-        capture="user"
-        onChange={handleFile}
-        className="sr-only"
-      />
-    </div>
-  )
+  // idle: choose camera or upload
+  renderIdleView()
 }
