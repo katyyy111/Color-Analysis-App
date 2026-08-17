@@ -57,7 +57,7 @@ export type QuizStepProps = {
 }
 
 export type PhotoCaptureProps = {
-  value: string | null
+  initialPhoto: string | null
   onChange: (dataUrl: string | null) => void
 }
 
