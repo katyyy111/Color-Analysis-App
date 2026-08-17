@@ -7,6 +7,9 @@ import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { PhotoCaptureProps } from '@/types/quiz'
 
+const MAX_FILE_SIZE = 10 * 1024 * 1024
+const ACCEPTED_IMAGE_TYPES = "image/png,image/jpeg,image/webp"
+
 export function PhotoCapture({ initialPhoto, onChange }: PhotoCaptureProps) {
   const [mode, setMode] = useState<'idle' | 'camera'>('idle')
   const [error, setError] = useState<string | null>(null)
@@ -20,7 +23,7 @@ export function PhotoCapture({ initialPhoto, onChange }: PhotoCaptureProps) {
   }, [])
 
   const isValidPhoto = (file: File) => {
-  return file.type.startsWith('image/') && file.size <= 10 * 1024 * 1024
+  return file.type.startsWith('image/') && file.size <= MAX_FILE_SIZE
   }
 
   const readFileAsDataURL = (file: File): Promise<string> =>
@@ -218,7 +221,7 @@ export function PhotoCapture({ initialPhoto, onChange }: PhotoCaptureProps) {
         <input
           ref={fileInputRef}
           type="file"
-          accept="image/png,image/jpeg,image/webp"
+          accept={ACCEPTED_IMAGE_TYPES}
           capture="user"
           onChange={handleFile}
           className="sr-only"
