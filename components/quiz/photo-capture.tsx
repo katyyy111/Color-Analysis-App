@@ -6,8 +6,8 @@ import { Camera, Upload, RefreshCw, X, Check } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { PhotoCaptureProps } from '@/types/quiz'
+import { isValidPhoto, readFileAsDataURL, saveSquareImageDataUrl } from '@/lib/photo-capture-utils'
 
-const MAX_FILE_SIZE = 10 * 1024 * 1024
 const ACCEPTED_IMAGE_TYPES = "image/png,image/jpeg,image/webp"
 
 export function PhotoCapture({ initialPhoto, onChange }: PhotoCaptureProps) {
@@ -22,39 +22,11 @@ export function PhotoCapture({ initialPhoto, onChange }: PhotoCaptureProps) {
     streamRef.current = null
   }, [])
 
-  const isValidPhoto = (file: File) => {
-  return file.type.startsWith('image/') && file.size <= MAX_FILE_SIZE
-  }
-
-  const readFileAsDataURL = (file: File): Promise<string> =>
-    new Promise((resolve, reject) => {
-      const reader = new FileReader()
-      reader.onload = () => resolve(reader.result as string) // register event listener for successful read
-      reader.onerror = () => reject(new Error('Failed to read file as data URL'))
-      reader.readAsDataURL(file)
-  })
-
-  const saveSquareImageDataUrl = (video: HTMLVideoElement): void => {
-    const canvas = document.createElement('canvas')
-    const size = Math.min(video.videoWidth, video.videoHeight)
-    canvas.width = size
-    canvas.height = size
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
-    // center-crop to a square, mirror to match the preview
-    const sx = (video.videoWidth - size) / 2
-    const sy = (video.videoHeight - size) / 2
-    ctx.translate(canvas.width, 0)
-    ctx.scale(-1, 1)
-    ctx.drawImage(video, sx, sy, size, size, 0, 0, size, size)
-    onChange(canvas.toDataURL('image/jpeg', 0.9))
-  }
-
   useEffect(() => {
     return () => stopCamera()
   }, [stopCamera])
 
-  async function startCamera() {
+  const startCamera = useCallback(async () => {
     setError(null)
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
@@ -76,12 +48,13 @@ export function PhotoCapture({ initialPhoto, onChange }: PhotoCaptureProps) {
       )
       setMode('idle')
     }
-  }
+  }, [])
 
   function capturePhoto() {
     const video = videoRef.current
     if (!video) return
-    saveSquareImageDataUrl(video)
+    const dataURL = saveSquareImageDataUrl(video)
+    onChange(dataURL)
     stopCamera()
     setMode('idle')
   }
@@ -97,6 +70,7 @@ export function PhotoCapture({ initialPhoto, onChange }: PhotoCaptureProps) {
     readFileAsDataURL(file)
       .then((dataUrl) => {
         onChange(dataUrl)
+        event.target.value = '' // reset the input so the same file can be selected again if needed
       })
       .catch(() => {
         setError('Failed to read the file. Please try again.')
@@ -113,6 +87,8 @@ export function PhotoCapture({ initialPhoto, onChange }: PhotoCaptureProps) {
       <div className="flex flex-col items-center gap-5">
         <div className="relative">
           <Image
+            width={224}
+            height={224}
             src={initialPhoto || '/placeholder.svg'}
             alt="Your uploaded photo for color analysis"
             className="size-56 rounded-3xl object-cover shadow-lg shadow-primary/15 ring-1 ring-border"
