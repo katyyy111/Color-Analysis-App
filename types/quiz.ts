@@ -1,17 +1,19 @@
-export type ScoreVector = {
+import { ColorSample } from "./color-sampling"
+
+export interface ScoreVector {
   temperature: number
   value: number
   chroma: number
 }
 
-export type OptionValue = {
+export interface OptionValue {
     scores: ScoreVector,
     primaryAttribute: string,
     seasonAffinities: string[],
     explanation: string
 }
 
-export type AnswerOption = {
+export interface AnswerOption {
   id: string,
   value: OptionValue
   label: string
@@ -19,19 +21,23 @@ export type AnswerOption = {
   swatch?: string
 }
 
-export type Question = {
+export interface Question {
   stepTitle: string
   question: string
   description?: string
   options?: AnswerOption[]
 }
 
-export type SeasonalRanking = {
+export interface PhotoQuestion extends Question {
+  colorSamples: ColorSample[];
+}
+
+export interface SeasonalRanking {
   season: string
   count: number
 }
 
-export type ColorResult = {
+export interface ColorResult {
   season: string
   confidenceScore: string
   primaryAttribute: string

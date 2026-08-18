@@ -6,16 +6,26 @@ import { QuizStepProps } from '@/types/quiz-components-props'
 
 /** A standard single-choice question step with selectable answer cards. */
 export function QuizStep({
-  props,
+  question,
+  currentStep,
+  totalSteps,
+  onNext,
+  canProceed,
+  isLastStep,
   selected,
   onSelect
 }: QuizStepProps) {
   return (
     <QuizStepTemplate
-      {...props}
+      question={question}
+      currentStep={currentStep}
+      totalSteps={totalSteps}
+      onNext={onNext}
+      isLastStep={isLastStep}
+      canProceed={canProceed}
     >
-      <div role="radiogroup" aria-label={props.question.question} className="flex flex-col gap-3">
-        {props.question.options?.map((option) => (
+      <div role="radiogroup" aria-label={question.question} className="flex flex-col gap-3">
+        {question.options?.map((option) => (
           <AnswerCard
             key={option.id}
             option={option}

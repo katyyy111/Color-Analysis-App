@@ -1,13 +1,13 @@
 import { ReactNode } from 'react'
 import { AnswerOption, Question } from './quiz'
 
-export type AnswerCardProps = {
+export interface AnswerCardProps {
   option: AnswerOption
   selected: boolean
   onSelect: (value: AnswerOption) => void
 }
 
-export type QuizStepTemplateProps = {
+export interface QuizStepTemplateProps {
   question: Question
   currentStep: number
   totalSteps: number
@@ -17,19 +17,17 @@ export type QuizStepTemplateProps = {
   children?: ReactNode
 }
 
-export type PhotoQuizStepProps = {
-  props: QuizStepTemplateProps
+export interface PhotoQuizStepProps extends QuizStepTemplateProps {
   photo: string | null
   onPhotoChange: (photo: string | null) => void
 }
 
-export type QuizStepProps = {
-  props: QuizStepTemplateProps
+export interface QuizStepProps extends QuizStepTemplateProps {
   selected: string | null
   onSelect: (value: AnswerOption) => void
 }
 
-export type PhotoCaptureProps = {
+export interface PhotoCaptureProps {
   initialPhoto: string | null
   onChange: (dataUrl: string | null) => void
 }

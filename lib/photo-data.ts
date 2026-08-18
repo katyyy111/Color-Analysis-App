@@ -1,16 +1,4 @@
-export interface ColorSample {
-  id: string;
-  label: string;
-  samplingInstruction: string;
-  hex: string | null;
-}
-
-export interface PhotoQuestion {
-  stepTitle: string;
-  question: string;
-  description: string;
-  colorSamples: ColorSample[];
-}
+import { PhotoQuestion } from "../types/quiz"
 
 export const photoQuestions: PhotoQuestion[] = [
   {

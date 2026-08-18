@@ -51,7 +51,12 @@ export default function QuizPage() {
       {/* content */}
       <div className="relative z-10 mx-auto flex min-h-[calc(100vh-6rem)] w-full max-w-3xl flex-col justify-center px-6 py-12">
         <PhotoQuizStep
-          props={{question, currentStep: current + 1, totalSteps: photoQuestions.length, onNext: handleNext, canProceed: !!photos[current], isLastStep: isLastStep}}
+          question={question}
+          currentStep={current + 1}
+          totalSteps={photoQuestions.length}
+          onNext={handleNext}
+          canProceed={!!photos[current]}
+          isLastStep={isLastStep}
           photo={photos[current] ?? null}
           onPhotoChange={handleSelect}
         />

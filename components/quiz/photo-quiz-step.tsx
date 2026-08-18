@@ -6,15 +6,24 @@ import { PhotoQuizStepProps } from '@/types/quiz-components-props'
 
 /** A quiz step that collects a photo via upload or the camera. */
 export function PhotoQuizStep({
-  props,
+  question,
+  currentStep,
+  totalSteps,
+  onNext,
+  canProceed,
+  isLastStep,
   photo,
   onPhotoChange,
 }: PhotoQuizStepProps) {
-  const canProceed = photo != null
-  const stepProps = { ...props, canProceed }
-
   return (
-    <QuizStepTemplate {...stepProps}>
+    <QuizStepTemplate
+      question={question}
+      currentStep={currentStep}
+      totalSteps={totalSteps}
+      onNext={onNext}
+      canProceed={canProceed}
+      isLastStep={isLastStep}
+    >
       <PhotoCapture initialPhoto={photo} onChange={onPhotoChange} />
     </QuizStepTemplate>
   )
