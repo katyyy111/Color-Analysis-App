@@ -4,27 +4,37 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { PhotoQuizStep } from '@/components/quiz/photo-quiz-step'
 import { photoQuestions } from '@/lib/photo-data'
+import { ColorSampleDataSet } from '@/types/color-sampling'
+import { ColorSamplingStep } from '@/components/sampling/color-sampling-step'
 
 export default function QuizPage() {
   const router = useRouter()
   const [current, setCurrent] = useState(0)
+
   const [photos, setPhotos] = useState<Record<number, string | null>>({})
+  const [collectedSamples, setCollectedSamples] = useState<Record<number, ColorSampleDataSet[]>>({})
+
+  const [readyToCollectColors, setReadyToCollectColors] = useState(false)
 
   const question = photoQuestions[current]
   const isLastStep = current === photoQuestions.length - 1
 
-  function handleSelect(photo: string | null) {
+  function handlePhotoChange(photo: string | null) {
     setPhotos((prev) => ({ ...prev, [current]: photo }))
-    console.log('Selected photo:', photo)
   }
 
-  function handleNext() {
+  function handlePhotoSelectComplete() {
     if (!photos[current]) return
+    setReadyToCollectColors(true)
+  }
+
+  function handlePickedColors(samples: ColorSampleDataSet[]) {
+    setCollectedSamples((prev) => ({ ...prev, [current]: samples }))
     if (!isLastStep) {
+      setReadyToCollectColors(false);
       setCurrent((prev) => prev + 1)
       return
     }
-    console.log('Final quiz answers:', photos)
     router.push('/quiz/questions')
   }
 
@@ -50,16 +60,24 @@ export default function QuizPage() {
 
       {/* content */}
       <div className="relative z-10 mx-auto flex min-h-[calc(100vh-6rem)] w-full max-w-3xl flex-col justify-center px-6 py-12">
-        <PhotoQuizStep
-          question={question}
-          currentStep={current + 1}
-          totalSteps={photoQuestions.length}
-          onNext={handleNext}
-          canProceed={!!photos[current]}
-          isLastStep={isLastStep}
-          photo={photos[current] ?? null}
-          onPhotoChange={handleSelect}
-        />
+        { readyToCollectColors ? (
+          <ColorSamplingStep
+            imageUrl={photos[current] ?? ''}
+            initialSamples={question.colorSamples}
+            onNext={handlePickedColors}
+            />
+          ) : (
+          <PhotoQuizStep
+            question={question}
+            currentStep={current + 1}
+            totalSteps={photoQuestions.length}
+            onNext={handlePhotoSelectComplete}
+            canProceed={!!photos[current]}
+            isLastStep={isLastStep}
+            photo={photos[current] ?? null}
+            onPhotoChange={handlePhotoChange}
+          />
+        )}
       </div>
     </main>
   )
