@@ -2,7 +2,7 @@
 
 import { Check } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import type { AnswerCardProps } from '@/types/quiz'
+import type { AnswerCardProps } from '@/types/quiz-components-props'
 
 export function AnswerCard({ option, selected, onSelect }: AnswerCardProps) {
   return (

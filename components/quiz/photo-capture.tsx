@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { Camera, Upload, RefreshCw, X, Check } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
-import { PhotoCaptureProps } from '@/types/quiz'
+import { PhotoCaptureProps } from '@/types/quiz-components-props'
 import { isValidPhoto, readFileAsDataURL, saveSquareImageDataUrl } from '@/lib/photo-capture-utils'
 
 const ACCEPTED_IMAGE_TYPES = "image/png,image/jpeg,image/webp"

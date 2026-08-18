@@ -2,7 +2,7 @@
 
 import { ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { QuizStepTemplateProps } from '@/types/quiz'
+import { QuizStepTemplateProps } from '@/types/quiz-components-props'
 
 /**
  * Shared layout for every quiz step: progress bar, step title, question

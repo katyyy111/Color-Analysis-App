@@ -2,7 +2,7 @@
 
 import { QuizStepTemplate } from '@/components/quiz/quiz-step-template'
 import { PhotoCapture } from '@/components/quiz/photo-capture'
-import { PhotoQuizStepProps } from '@/types/quiz'
+import { PhotoQuizStepProps } from '@/types/quiz-components-props'
 
 /** A quiz step that collects a photo via upload or the camera. */
 export function PhotoQuizStep({

@@ -2,7 +2,7 @@
 
 import { QuizStepTemplate } from '@/components/quiz/quiz-step-template'
 import { AnswerCard } from '@/components/quiz/answer-card'
-import { QuizStepProps } from '@/types/quiz'
+import { QuizStepProps } from '@/types/quiz-components-props'
 
 /** A standard single-choice question step with selectable answer cards. */
 export function QuizStep({
