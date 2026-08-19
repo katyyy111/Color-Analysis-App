@@ -1,21 +1,23 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { QuizStep } from '@/components/quiz/quiz-step'
 import { questions } from '@/lib/quiz-data'
 import { AnswerOption } from '@/types/quiz'
 
-export default function QuizPage() {
-  const router = useRouter()
-  const [current, setCurrent] = useState(0)
-  const [answers, setAnswers] = useState<Record<number, string>>({})
+interface QuizQuestionFlowProps {
+    answers: Record<number, string>
+    saveAnswer: (questionId: number, answerId: string) => void
+    onComplete: () => void
+}
 
+export function QuizQuestionFlow({ answers, saveAnswer, onComplete }: QuizQuestionFlowProps) {
+  const [current, setCurrent] = useState(0)
   const question = questions[current]
   const isLastStep = current === questions.length - 1
 
   function handleSelect(ans: AnswerOption) {
-    setAnswers((prev) => ({ ...prev, [current]: ans.id }))
+    saveAnswer(current, ans.id)
     console.log('Selected answer:', ans)
   }
 
@@ -25,9 +27,8 @@ export default function QuizPage() {
       setCurrent((prev) => prev + 1)
       return
     }
-    console.log('Final quiz answers:', answers)
-    sessionStorage.setItem('quiz-selection', JSON.stringify(answers))
-    router.push('/results')
+    onComplete()
+    return
   }
 
   return (

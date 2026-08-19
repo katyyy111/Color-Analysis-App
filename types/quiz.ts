@@ -1,4 +1,4 @@
-import { ColorSample } from "./color-sampling"
+import { ColorSample, ColorSampleDataSet } from "./color-sampling"
 
 export interface ScoreVector {
   temperature: number
@@ -35,6 +35,13 @@ export interface PhotoQuestion extends Question {
 export interface SeasonalRanking {
   season: string
   count: number
+}
+
+export interface AnalysisInput {
+  quizAnswers: Record<number, string>
+  calculatedVector: ScoreVector
+  colorSamples: Record<number, ColorSampleDataSet[]>
+  frontFacingImageBase64: string
 }
 
 export interface ColorResult {
