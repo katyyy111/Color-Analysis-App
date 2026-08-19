@@ -1,36 +1,40 @@
-'use client'
-
 import Link from 'next/link'
-import { RotateCcw, Sparkles } from 'lucide-react'
+import { RotateCcw, Shirt, Scissors, Brush, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { SeasonalRankingChart, VectorScoreChart } from '@/components/results/result-metrics'
 import { SectionCard } from '@/components/results/result-section-card'
+import {
+  SeasonalRankingChart,
+  VectorScoreChart
+} from '@/components/results/result-metrics'
+import { ScoreVector, ColorResult } from '@/types/quiz'
 
-const sampleOutput = {
-  "season": "Soft Summer",
-  "confidenceScore": "88%",
-  "primaryAttribute": "Soft (chroma)",
-  "secondaryAttribute": "Cool (temperature)",
-  "vectorScores": {
-    "temperature": -11.5,
-    "value": 3.0,
-    "chroma": -10.5
+const result: ColorResult = {
+  season: 'Soft Summer',
+  confidenceScore: '88%',
+  primaryAttribute: 'Soft (chroma)',
+  secondaryAttribute: 'Cool (temperature)',
+  vectorScores: { temperature: -11.5, value: 3.0, chroma: -10.5 },
+  topSeasons: ['Soft Summer', 'Cool Summer', 'Light Summer'],
+  explanation:
+    'Low melanin density and cool/pale undertones lead to quick burning and minimal tanning capability.',
+  suggestions: {
+    clothes:
+      'Reach for dusty, muted tones — slate blue, soft mauve, sage and cool taupe. Keep contrast gentle and avoid stark black or bright saturated shades.',
+    hair: 'Ashy, cool-toned colors flatter you most — think cool brunette, soft mushroom blonde or a smoky pastel. Steer clear of warm golden or copper tones.',
+    makeup:
+      'Rosy, muted blushes and soft berry or mauve lips harmonize with your cool undertone. Choose matte, blended finishes over high-shimmer or orange-based shades.',
   },
-  "seasonalRankings": [
-    { "season": "Soft Summer", "count": 9 },
-    { "season": "Cool Summer", "count": 7 },
-    { "season": "Light Summer", "count": 5 }
-  ],
-  "diagnosticExplanations": [
-    "Low melanin density and cool/pale undertones lead to quick burning and minimal tanning capability.",
-    "Tan manifests with ash, blue-pink, or greyish-olive undertones rather than warm gold.",
-    "Greyish or charcoal freckles indicate muted undertones and lower contrast chroma."
-  ]
 }
 
-export default function ResultsPage() {
-  const result = sampleOutput
+const suggestionItems = [
+  { key: 'clothes', label: 'Clothing', icon: Shirt },
+  { key: 'hair', label: 'Hair', icon: Scissors },
+  { key: 'makeup', label: 'Makeup', icon: Brush },
+] as const
 
+const palette = ['#a7b1c4', '#c6b2c8', '#b3c7c2', '#d8c3ce', '#8b93a6', '#9fb0b3']
+
+export default function ResultsPage() {
   return (
     <main className="relative min-h-screen overflow-hidden">
       {/* soft decorative glows */}
@@ -59,11 +63,11 @@ export default function ResultsPage() {
             Your color season
           </span>
           <h1 className="mt-6 text-balance font-serif text-5xl font-semibold leading-tight tracking-tight text-foreground sm:text-6xl">
-            {result?.season}
+            {result.season}
           </h1>
 
           {/* palette */}
-          {/* <ul className="mt-8 flex items-center gap-2 sm:gap-3">
+          <ul className="mt-8 flex items-center gap-2 sm:gap-3">
             {palette.map((color) => (
               <li
                 key={color}
@@ -72,7 +76,7 @@ export default function ResultsPage() {
                 aria-label={`Palette color ${color}`}
               />
             ))}
-          </ul> */}
+          </ul>
 
           {/* key attributes */}
           <dl className="mt-10 grid w-full grid-cols-1 gap-3 sm:grid-cols-3">
@@ -81,7 +85,7 @@ export default function ResultsPage() {
                 Confidence
               </dt>
               <dd className="mt-2 font-serif text-3xl font-semibold text-primary">
-                {result?.confidenceScore}
+                {result.confidenceScore}
               </dd>
             </div>
             <div className="rounded-2xl border border-border bg-card/70 p-5 backdrop-blur">
@@ -89,7 +93,7 @@ export default function ResultsPage() {
                 Primary
               </dt>
               <dd className="mt-2 font-serif text-lg font-semibold text-foreground">
-                {result?.primaryAttribute}
+                {result.primaryAttribute}
               </dd>
             </div>
             <div className="rounded-2xl border border-border bg-card/70 p-5 backdrop-blur">
@@ -97,7 +101,7 @@ export default function ResultsPage() {
                 Secondary
               </dt>
               <dd className="mt-2 font-serif text-lg font-semibold text-foreground">
-                {result?.secondaryAttribute}
+                {result.secondaryAttribute}
               </dd>
             </div>
           </dl>
@@ -106,23 +110,37 @@ export default function ResultsPage() {
         {/* detail sections */}
         <div className="mt-10 flex flex-col gap-4">
           <SectionCard title="Color dimensions">
-            <VectorScoreChart scores={result?.vectorScores ?? ({ temperature: 0, value: 0, chroma: 0 })} />
+            <VectorScoreChart scores={result.vectorScores} />
           </SectionCard>
 
           <SectionCard title="Closest season matches">
-            <SeasonalRankingChart rankings={result?.seasonalRankings ?? []} />
+            <SeasonalRankingChart rankings={result.topSeasons} />
           </SectionCard>
 
           <SectionCard title="Why this season">
+            <p className="text-pretty text-base leading-relaxed text-muted-foreground">
+              {result.explanation}
+            </p>
+          </SectionCard>
+
+          <SectionCard title="Styling suggestions">
             <ul className="flex flex-col gap-4">
-              {result?.diagnosticExplanations.map((explanation, index) => (
-                <li key={index} className="flex gap-4">
-                  <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-primary/10 font-mono text-xs font-semibold text-primary">
-                    {index + 1}
+              {suggestionItems.map(({ key, label, icon: Icon }) => (
+                <li
+                  key={key}
+                  className="flex gap-4 rounded-2xl border border-border bg-card/60 p-5"
+                >
+                  <span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                    <Icon className="size-5" />
                   </span>
-                  <p className="text-pretty text-sm leading-relaxed text-muted-foreground">
-                    {explanation}
-                  </p>
+                  <div>
+                    <h3 className="font-serif text-base font-semibold text-foreground">
+                      {label}
+                    </h3>
+                    <p className="mt-1 text-pretty text-sm leading-relaxed text-muted-foreground">
+                      {result.suggestions[key]}
+                    </p>
+                  </div>
                 </li>
               ))}
             </ul>

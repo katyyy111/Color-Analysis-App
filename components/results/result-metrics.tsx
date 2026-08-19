@@ -1,4 +1,4 @@
-import {SeasonalRanking, ScoreVector} from '@/types/quiz'
+import { ScoreVector} from '@/types/quiz'
 
 const axes: {
     key: keyof ScoreVector
@@ -61,45 +61,40 @@ export function VectorScoreChart({ scores }: { scores: ScoreVector }) {
   )
 }
 
-export function SeasonalRankingChart({
-  rankings,
-}: {
-  rankings: SeasonalRanking[]
-}) {
-  const max = Math.max(...rankings.map((r) => r.count), 1)
+export function SeasonalRankingChart({ rankings }: { rankings: string[] }) {
   return (
-    <ul className="flex flex-col gap-4">
-      {rankings.map((ranking, index) => {
-        const width = (ranking.count / max) * 100
+    <ol className="flex flex-col gap-3">
+      {rankings.map((season, index) => {
         const isTop = index === 0
         return (
-          <li key={ranking.season} className="flex items-center gap-4">
-            <span className="w-28 shrink-0 truncate font-serif text-sm font-semibold text-foreground">
-              {ranking.season}
+          <li
+            key={season}
+            className={
+              isTop
+                ? 'flex items-center gap-4 rounded-2xl border border-primary/30 bg-primary/5 px-4 py-3.5'
+                : 'flex items-center gap-4 rounded-2xl border border-border bg-card/60 px-4 py-3.5'
+            }
+          >
+            <span
+              className={
+                isTop
+                  ? 'flex size-8 shrink-0 items-center justify-center rounded-full bg-primary font-mono text-sm font-semibold text-primary-foreground'
+                  : 'flex size-8 shrink-0 items-center justify-center rounded-full bg-secondary font-mono text-sm font-semibold text-secondary-foreground'
+              }
+            >
+              {index + 1}
             </span>
-            <div className="h-8 flex-1 overflow-hidden rounded-full bg-secondary">
-              <div
-                className={
-                  isTop
-                    ? 'flex h-full items-center justify-end rounded-full bg-primary px-3 transition-all duration-700 ease-out'
-                    : 'flex h-full items-center justify-end rounded-full bg-accent px-3 transition-all duration-700 ease-out'
-                }
-                style={{ width: `${width}%` }}
-              >
-                <span
-                  className={
-                    isTop
-                      ? 'font-mono text-xs font-semibold text-primary-foreground'
-                      : 'font-mono text-xs font-semibold text-accent-foreground'
-                  }
-                >
-                  {ranking.count}
-                </span>
-              </div>
-            </div>
+            <span className="flex-1 font-serif text-base font-semibold text-foreground">
+              {season}
+            </span>
+            {isTop && (
+              <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.15em] text-primary">
+                Best match
+              </span>
+            )}
           </li>
         )
       })}
-    </ul>
+    </ol>
   )
 }

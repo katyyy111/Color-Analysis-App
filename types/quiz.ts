@@ -58,6 +58,6 @@ export interface ColorResult {
   secondaryAttribute: string
   vectorScores: ScoreVector
   topSeasons: string[]
-  explanations: string[]
+  explanation: string
   suggestions: Record<'clothes' | 'hair' | 'makeup', string>
 }
