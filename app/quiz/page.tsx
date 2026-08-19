@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { QuizQuestionFlow } from '@/components/quiz/quiz-question-flow'
+import { QuizPhotoFlow } from '@/components/quiz/quiz-photo-flow'
 import { ColorSampleDataSet } from '@/types/color-sampling'
 
 export interface QuizSession {
@@ -13,7 +14,7 @@ export interface QuizSession {
 
 export default function QuizPage() {
   const router = useRouter()
-  const [step, setStep] = useState<'photos' | 'questions'>('questions')
+  const [step, setStep] = useState<'photos' | 'questions'>('photos')
 
   const [session, setSession] = useState<QuizSession>({
     frontFacingPhoto: null,
@@ -52,6 +53,16 @@ export default function QuizPage() {
     console.log('Final quiz session:', session)
     sessionStorage.setItem('quiz-session', JSON.stringify(session))
     router.push('/results')
+    }
+
+    if (step == 'photos') {
+        return (
+            <QuizPhotoFlow
+                saveSamples={updateSamples}
+                setFrontFacingImage={updatePhoto}
+                onComplete={() => setStep('questions')}
+            />
+        )
     }
 
     return (
