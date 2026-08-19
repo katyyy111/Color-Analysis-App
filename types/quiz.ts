@@ -37,9 +37,16 @@ export interface SeasonalRanking {
   count: number
 }
 
+export interface QuizSession {
+    frontFacingPhoto: string | null
+    samples: Record<number, ColorSampleDataSet[]>
+    answers: Record<number, string>
+}
+
 export interface AnalysisInput {
   quizAnswers: Record<number, string>
   calculatedVector: ScoreVector
+  seasonalRankings: SeasonalRanking[]
   colorSamples: Record<number, ColorSampleDataSet[]>
   frontFacingImageBase64: string
 }
@@ -50,6 +57,7 @@ export interface ColorResult {
   primaryAttribute: string
   secondaryAttribute: string
   vectorScores: ScoreVector
-  seasonalRankings: SeasonalRanking[]
-  diagnosticExplanations: string[]
+  topSeasons: string[]
+  explanations: string[]
+  suggestions: Record<'clothes' | 'hair' | 'makeup', string>
 }

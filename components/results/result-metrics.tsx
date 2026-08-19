@@ -7,8 +7,8 @@ const axes: {
     high: string
     }[] = [
     { key: 'temperature', label: 'Temperature', low: 'Cool', high: 'Warm' },
-    { key: 'value', label: 'Value', low: 'Deep', high: 'Light' },
-    { key: 'chroma', label: 'Chroma', low: 'Soft', high: 'Bright' },
+    { key: 'value', label: 'Value / Brightness', low: 'Deep', high: 'Light' },
+    { key: 'chroma', label: 'Chroma / Saturation', low: 'Soft', high: 'Bright' },
 ]
 
 const SCALE = 18

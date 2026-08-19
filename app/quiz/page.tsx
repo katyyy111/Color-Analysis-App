@@ -4,16 +4,14 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { QuizQuestionFlow } from '@/components/quiz/quiz-question-flow'
 import { QuizPhotoFlow } from '@/components/quiz/quiz-photo-flow'
+import { useColorAnalysis } from '@/hooks/useAIColorAnalysis'
+import { prepareAnalysisInput } from '@/lib/analysis-input'
 import { ColorSampleDataSet } from '@/types/color-sampling'
-
-export interface QuizSession {
-    frontFacingPhoto: string | null
-    samples: Record<number, ColorSampleDataSet[]>
-    answers: Record<number, string>
-}
+import { QuizSession } from '@/types/quiz'
 
 export default function QuizPage() {
   const router = useRouter()
+  const { analyze, isLoading, error } = useColorAnalysis()
   const [step, setStep] = useState<'photos' | 'questions'>('photos')
 
   const [session, setSession] = useState<QuizSession>({
@@ -49,11 +47,16 @@ export default function QuizPage() {
     }))
   }
 
-  function handleQuizComplete() {
-    console.log('Final quiz session:', session)
-    sessionStorage.setItem('quiz-session', JSON.stringify(session))
-    router.push('/results')
+  async function handleQuizComplete() {
+    try {
+      const input = prepareAnalysisInput(session)
+      sessionStorage.setItem('quiz-session', JSON.stringify(session))
+      await analyze(input)
+      router.push('/results')
+    } catch (error) {
+      console.error('Unable to prepare quiz analysis:', error)
     }
+  }
 
     if (step == 'photos') {
         return (
@@ -63,6 +66,14 @@ export default function QuizPage() {
                 onComplete={() => setStep('questions')}
             />
         )
+    }
+
+    if (isLoading) {
+      return <p>Analyzing your colors...</p>
+    }
+
+    if (error) {
+      return <p>{error}</p>
     }
 
     return (

@@ -3,16 +3,33 @@
 import Link from 'next/link'
 import { RotateCcw, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { SeasonalRankingChart, VectorScoreChart } from '@/components/quiz/result-metrics'
-import { SectionCard } from '@/components/quiz/result-section-card'
-import { calculateColorAnalysis, parseQuizSelections } from '@/lib/result-calculations'
+import { SeasonalRankingChart, VectorScoreChart } from '@/components/results/result-metrics'
+import { SectionCard } from '@/components/results/result-section-card'
 
+const sampleOutput = {
+  "season": "Soft Summer",
+  "confidenceScore": "88%",
+  "primaryAttribute": "Soft (chroma)",
+  "secondaryAttribute": "Cool (temperature)",
+  "vectorScores": {
+    "temperature": -11.5,
+    "value": 3.0,
+    "chroma": -10.5
+  },
+  "seasonalRankings": [
+    { "season": "Soft Summer", "count": 9 },
+    { "season": "Cool Summer", "count": 7 },
+    { "season": "Light Summer", "count": 5 }
+  ],
+  "diagnosticExplanations": [
+    "Low melanin density and cool/pale undertones lead to quick burning and minimal tanning capability.",
+    "Tan manifests with ash, blue-pink, or greyish-olive undertones rather than warm gold.",
+    "Greyish or charcoal freckles indicate muted undertones and lower contrast chroma."
+  ]
+}
 
 export default function ResultsPage() {
-  const storedAnswers = sessionStorage.getItem('quiz-selection')
-  const answers = storedAnswers ? JSON.parse(storedAnswers) : null
-  const parsedAnswers = parseQuizSelections(answers ? answers : null)
-  const result = parsedAnswers ? calculateColorAnalysis(parsedAnswers) : null
+  const result = sampleOutput
 
   return (
     <main className="relative min-h-screen overflow-hidden">
